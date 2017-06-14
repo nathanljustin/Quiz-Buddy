@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>AD_UNIT_ID_FOR_BANNER_TEST</key>
+	<string>ca-app-pub-3940256099942544/2934735716</string>
+	<key>AD_UNIT_ID_FOR_INTERSTITIAL_TEST</key>
+	<string>ca-app-pub-3940256099942544/4411468910</string>
+	<key>CLIENT_ID</key>
+	<string>144611438924-ctbu8ujk4vn34r71fud7e47pvkpp9lst.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.144611438924-ctbu8ujk4vn34r71fud7e47pvkpp9lst</string>
+	<key>API_KEY</key>
+	<string>AIzaSyCJTzasVVODzFxQ4Bx20AD0m-KBdMzVvAU</string>
+	<key>GCM_SENDER_ID</key>
+	<string>144611438924</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>Nathan-Justin.Quiz-Buddy</string>
+	<key>PROJECT_ID</key>
+	<string>quiz-buddy</string>
+	<key>STORAGE_BUCKET</key>
+	<string>quiz-buddy.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<true/>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false/>
+	<key>IS_APPINVITE_ENABLED</key>
+	<false/>
+	<key>IS_GCM_ENABLED</key>
+	<true/>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true/>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:144611438924:ios:89247a64343cac81</string>
+	<key>DATABASE_URL</key>
+	<string>https://quiz-buddy.firebaseio.com</string>
+</dict>
+</plist>

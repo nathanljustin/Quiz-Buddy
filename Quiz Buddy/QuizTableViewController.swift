@@ -7,9 +7,17 @@
 //
 
 import UIKit
+import Gloss
+import Realm
 
 class QuizTableViewController: UITableViewController {
 
+    var quizzes: RLMResults<Quiz> {
+        get {
+            return Quiz.allObjects() as! RLMResults<Quiz>
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -29,23 +37,27 @@ class QuizTableViewController: UITableViewController {
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return 0
+        return 1
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 0
+        return Int(quizzes.count)
     }
 
-    /*
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "quizCell", for: indexPath) as! QuizTableViewCell
+        
+        cell.name.text = quizzes.object(at: UInt(indexPath.row)).name
+        cell.number.text = quizzes.object(at: UInt(indexPath.row)).questions.count as! String
+        cell.prevScore.text = quizzes.object(at: UInt(indexPath.row)).prevScore as! String
 
         // Configure the cell...
 
-        return cell
+        return cell as UITableViewCell
     }
-    */
+    
 
     /*
     // Override to support conditional editing of the table view.
@@ -92,4 +104,10 @@ class QuizTableViewController: UITableViewController {
     }
     */
 
+}
+
+class QuizTableViewCell: UITableViewCell {
+    @IBOutlet weak var name: UILabel!
+    @IBOutlet weak var number: UILabel!
+    @IBOutlet weak var prevScore: UILabel!
 }
