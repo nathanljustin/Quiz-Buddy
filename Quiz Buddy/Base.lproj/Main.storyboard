@@ -10,10 +10,29 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
+        <!--Facebook Login-->
+        <scene sceneID="VQ6-S2-D3C">
+            <objects>
+                <viewController id="9L1-gw-Qzd" customClass="LoginViewController" customModule="Quiz_Buddy" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="kbe-7z-QaD"/>
+                        <viewControllerLayoutGuide type="bottom" id="W3E-c7-XyU"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="QKS-l3-g9p">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Facebook Login" id="qjC-WA-ejA"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="GyR-9x-eOk" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2606" y="-1284"/>
+        </scene>
         <!--Navigation Controller-->
         <scene sceneID="zVO-9d-HeS">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Whp-qN-JnR" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="mainView" automaticallyAdjustsScrollViewInsets="NO" id="Whp-qN-JnR" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="kAc-BD-NkX">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
@@ -219,11 +238,11 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" rowHeight="78" id="3H7-yM-FhU">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="quizCell" rowHeight="78" id="3H7-yM-FhU" customClass="QuizTableViewCell" customModule="Quiz_Buddy" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="28" width="375" height="78"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="3H7-yM-FhU" id="5gX-3C-MPu">
-                                    <rect key="frame" x="0.0" y="0.0" width="342" height="78"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="342" height="77.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Quiz Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="l6m-52-HHU">
@@ -255,6 +274,9 @@
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
+                                    <outlet property="name" destination="l6m-52-HHU" id="yfB-UZ-dt0"/>
+                                    <outlet property="number" destination="uKs-3P-MQV" id="HO9-MS-uup"/>
+                                    <outlet property="prevScore" destination="Xod-1x-wzA" id="SPn-bG-xRR"/>
                                     <segue destination="bnf-Vd-ShY" kind="show" id="5Qy-Fn-vln"/>
                                 </connections>
                             </tableViewCell>
@@ -383,7 +405,7 @@
                                         <rect key="frame" x="0.0" y="28" width="375" height="110"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="nDl-cW-a0m" id="tcy-0t-NLT" customClass="AnswerTableViewCell" customModule="Quiz_Buddy" customModuleProvider="target">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="110"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="109.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="A" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UnD-M5-Nxb">
@@ -484,7 +506,7 @@
         <!--Settings-->
         <scene sceneID="gGO-r4-e8I">
             <objects>
-                <tableViewController id="bal-l9-mcs" customClass="SettingsTableViewController" customModule="Quiz_Buddy" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="settingsVC" id="bal-l9-mcs" customClass="SettingsTableViewController" customModule="Quiz_Buddy" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="IxP-sj-KNU">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -496,7 +518,7 @@
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="174"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="sK9-nW-5lU" id="wBi-0v-E8I">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="174"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="173.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="question mark" translatesAutoresizingMaskIntoConstraints="NO" id="weF-HM-ppT">
@@ -505,8 +527,8 @@
                                                         <constraint firstAttribute="width" constant="141" id="MEI-qS-4If"/>
                                                     </constraints>
                                                 </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Username" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Mfe-gM-MIv">
-                                                    <rect key="frame" x="139" y="137" width="97" height="30"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Please Log into Facebook" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Mfe-gM-MIv">
+                                                    <rect key="frame" x="67" y="137" width="241" height="30"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="30" id="4CY-Ln-Z63"/>
                                                     </constraints>
@@ -531,7 +553,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="342" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Profile" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Hc8-82-yb1">
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Facebook Login/Logout" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Hc8-82-yb1">
                                                     <rect key="frame" x="54" y="0.0" width="286" height="43.5"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -545,7 +567,7 @@
                                             </subviews>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <segue destination="zkV-nF-F00" kind="show" id="q10-ok-mHx"/>
+                                            <segue destination="9L1-gw-Qzd" kind="show" id="uaM-Ai-1U7"/>
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" textLabel="eVR-qT-aSt" imageView="nF5-Zt-nv1" style="IBUITableViewCellStyleDefault" id="E2D-Xx-lEe">
@@ -617,43 +639,6 @@
             </objects>
             <point key="canvasLocation" x="2605.5999999999999" y="-579.76011994002999"/>
         </scene>
-        <!--Profile-->
-        <scene sceneID="y36-fD-SIp">
-            <objects>
-                <viewController id="zkV-nF-F00" customClass="ProfileViewController" customModule="Quiz_Buddy" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="sDW-Fw-l6M"/>
-                        <viewControllerLayoutGuide type="bottom" id="yA8-Qr-sBq"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="RPl-I5-BFK">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Change Username" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IIu-Nd-cWi">
-                                <rect key="frame" x="16" y="72" width="143" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="cdn-Fx-nwv">
-                                <rect key="frame" x="16" y="101" width="343" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <nil key="textColor"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </textField>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
-                    <navigationItem key="navigationItem" title="Profile" id="XiW-Zt-rGX">
-                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="2dF-XP-fQ2"/>
-                    </navigationItem>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Fhr-k8-qPh" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2605.5999999999999" y="-1365.0674662668666"/>
-        </scene>
         <!--Navigation Controller-->
         <scene sceneID="fMF-VP-cEh">
             <objects>
@@ -680,6 +665,6 @@
         <image name="question mark" width="440" height="770"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="5As-Ky-gAO"/>
+        <segue reference="zyc-Oo-Mdh"/>
     </inferredMetricsTieBreakers>
 </document>
