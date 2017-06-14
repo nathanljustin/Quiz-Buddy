@@ -50,8 +50,8 @@ class QuizTableViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "quizCell", for: indexPath) as! QuizTableViewCell
         
         cell.name.text = quizzes.object(at: UInt(indexPath.row)).name
-        cell.number.text = quizzes.object(at: UInt(indexPath.row)).questions.count as! String
-        cell.prevScore.text = quizzes.object(at: UInt(indexPath.row)).prevScore as! String
+        cell.number.text = "Number of Questions: \(quizzes.object(at: UInt(indexPath.row)).questions.count)"
+        cell.prevScore.text = "Previous Score: \(quizzes.object(at: UInt(indexPath.row)).prevScore)"
 
         // Configure the cell...
 
@@ -94,15 +94,20 @@ class QuizTableViewController: UITableViewController {
     }
     */
 
-    /*
+    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "addSegue" {
+            let navigationVC = segue.destination as! UINavigationController
+            let createVC = navigationVC.topViewController as! EditQuizViewController
+            createVC.isCreating = true
+        }
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
     }
-    */
+ 
 
 }
 

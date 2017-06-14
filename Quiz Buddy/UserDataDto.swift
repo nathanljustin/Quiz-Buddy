@@ -7,17 +7,38 @@
 //
 
 import Gloss
+import Realm
+
+class RLMString: RLMObject {
+    
+    var string: String
+    
+    override init() {
+        string = ""
+        super.init()
+        //Do nothing
+    }
+    
+    func getString() -> String {
+        return string
+    }
+    
+    func setString(string: String) {
+        self.string = string
+    }
+    
+}
 
 class QuestionDto: Decodable, Glossy {
     var question: String
     var correct: String
-    var incorrect: Array<String>
+    var incorrect: RLMArray<RLMString>?
     var prevScore: Int
     
     init?() {
         self.question = ""
         self.correct = ""
-        self.incorrect = ["","",""]
+        self.incorrect = nil
         self.prevScore = 0
     }
     

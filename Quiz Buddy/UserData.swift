@@ -11,7 +11,7 @@ import Realm
 class Question: RLMObject {
     dynamic var question = ""
     dynamic var correct = ""
-    dynamic var incorrect = ["","",""]
+    dynamic var incorrect = RLMArray(objectClassName: "RLMString")
 }
 
 class Quiz: RLMObject {
