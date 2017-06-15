@@ -8,21 +8,22 @@
 
 import UIKit
 import Gloss
-import Realm
+import RealmSwift
 
 class QuizTableViewController: UITableViewController {
     
-    var indexChosen: UInt?
-
-    var quizzes: RLMResults<Quiz> {
-        get {
-            return Quiz.allObjects() as! RLMResults<Quiz>
-        }
-    }
+    var indexChosen: Int!
+    
+    var quizzes: Results<Quiz>!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        indexChosen = 0
 
+        let realm = try! Realm()
+        quizzes = realm.objects(Quiz.self)
+        
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
@@ -44,16 +45,16 @@ class QuizTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return Int(quizzes.count)
+        return Int(quizzes!.count)
     }
 
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "quizCell", for: indexPath) as! QuizTableViewCell
         
-        cell.name.text = quizzes.object(at: UInt(indexPath.row)).name
-        cell.number.text = "Number of Questions: \(quizzes.object(at: UInt(indexPath.row)).questions.count)"
-        cell.prevScore.text = "Previous Score: \(quizzes.object(at: UInt(indexPath.row)).prevScore)"
+        cell.name.text = quizzes?[indexPath.row].name
+        cell.number.text = "Number of Questions: \(String(describing: quizzes?[indexPath.row].questions.count))"
+        cell.prevScore.text = "Previous Score: \(String(describing: quizzes?[indexPath.row].prevScore))"
 
         // Configure the cell...
 
@@ -61,7 +62,7 @@ class QuizTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        indexChosen = UInt(indexPath.row)
+        indexChosen = indexPath.row
     }
 
     /*
@@ -112,7 +113,7 @@ class QuizTableViewController: UITableViewController {
         }
         if segue.identifier == "optionsSegue" {
             let optionsVC = segue.destination as! QuizOptionsTableViewController
-            optionsVC.quiz = quizzes.object(at: indexChosen!)
+            optionsVC.quiz = quizzes[indexChosen!]
         }
     }
 

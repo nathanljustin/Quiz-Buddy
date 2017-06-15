@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import Realm
+import RealmSwift
 
 class EditQuestionViewController: UIViewController {
     
@@ -36,16 +36,16 @@ class EditQuestionViewController: UIViewController {
             let string = RLMString()
             string.string = ""
             for _ in 0...2 { // Add 3 empty strings
-                inc?.add(string)
+                inc?.append(string)
             }
         }
-            
-        let incA = inc?.object(at: 0) as! RLMString
-        incorrectA.text = incA.getString()
-        let incB = inc?.object(at: 1) as! RLMString
-        incorrectB.text = incB.getString()
-        let incC = inc?.object(at: 2) as! RLMString
-        incorrectC.text = incC.getString()
+        
+        let incA = inc?[0]
+        incorrectA.text = incA?.getString()
+        let incB = inc?[1]
+        incorrectB.text = incB?.getString()
+        let incC = inc?[2]
+        incorrectC.text = incC?.getString()
         
         if isCreating == true {
             navItem.title = "Create Question"
@@ -65,13 +65,17 @@ class EditQuestionViewController: UIViewController {
         quest?.correct = answerText.text!
         let inc = quest?.incorrect
         
-        let incA = inc?.object(at: 0) as! RLMString
-        let incB = inc?.object(at: 1) as! RLMString
-        let incC = inc?.object(at: 2) as! RLMString
+        let incA = inc?[0]
+        let incB = inc?[1]
+        let incC = inc?[2]
         
-        incA.setString(string: incorrectA.text!)
-        incB.setString(string: incorrectB.text!)
-        incC.setString(string: incorrectC.text!)
+        incA?.setString(string: incorrectA.text!)
+        incB?.setString(string: incorrectB.text!)
+        incC?.setString(string: incorrectC.text!)
+        
+        print(inc?[0])
+        print(inc?[1])
+        print(inc?[2])
         
         if isCreating == true {
             quiz?.questions.insert(quest!, at: (quiz?.questions.count)!)

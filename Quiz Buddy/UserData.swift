@@ -5,16 +5,16 @@
 //  Created by Nathan Justin on 6/13/17.
 //  Copyright © 2017 Nathan Justin. All rights reserved.
 //
-import Realm
+import RealmSwift
 
-class Question: RLMObject {
+class Question: Object {
     dynamic var question = ""
     dynamic var correct = ""
-    dynamic var incorrect = RLMArray(objectClassName: "RLMString")
+    let incorrect = List<RLMString>()
 }
 
-class Quiz: RLMObject {
+class Quiz: Object {
     dynamic var name = ""
-    let questions = RLMArray(objectClassName: "Question")
+    let questions = List<Question>()
     dynamic var prevScore = 0
 }

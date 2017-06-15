@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import Realm
+import RealmSwift
 
 class EditQuizViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
@@ -17,7 +17,7 @@ class EditQuizViewController: UIViewController, UITableViewDelegate, UITableView
     
     var isCreating: Bool?
     var quiz: Quiz?
-    var index: UInt?
+    var index: Int?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -68,15 +68,15 @@ class EditQuizViewController: UIViewController, UITableViewDelegate, UITableView
         let cell:UITableViewCell = self.tableView.dequeueReusableCell(withIdentifier: "questionCell", for: indexPath) 
         
         // Insert info
-        let quest = quiz?.questions.object(at: UInt(indexPath.row)) as! Question
-        cell.textLabel?.text = quest.question
-        cell.detailTextLabel?.text = "Answer: \(quest.correct)"
+        let quest = quiz?.questions[indexPath.row]
+        cell.textLabel?.text = quest?.question
+        cell.detailTextLabel?.text = "Answer: \(String(describing: quest?.correct))"
         
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        index = UInt(indexPath.row)
+        index = indexPath.row
         performSegue(withIdentifier: "editQuestionSegue", sender: nil)
     }
     
@@ -84,14 +84,10 @@ class EditQuizViewController: UIViewController, UITableViewDelegate, UITableView
         quiz?.name = nameText.text!
         
         if isCreating == true {
-            let realm = RLMRealm.default()
-            realm.beginWriteTransaction()
-            realm.add(quiz!)
-            print("Realm URL: \(realm.configuration.fileURL!.absoluteString)")
-            do {
-                try realm.commitWriteTransactionWithoutNotifying([])
-            } catch {
-                print("Error")
+            let realm = try! Realm()
+            try! realm.write {
+                realm.add(quiz!)
+                print("Path to realm file: " + realm.configuration.fileURL!.absoluteString)
             }
         }
         
@@ -112,7 +108,7 @@ class EditQuizViewController: UIViewController, UITableViewDelegate, UITableView
         if segue.identifier == "editQuestionSegue" {
             let navVC = segue.destination as! UINavigationController
             let editQuestionVC = navVC.topViewController as! EditQuestionViewController
-            editQuestionVC.quest = quiz?.questions.object(at: index!) as? Question
+            editQuestionVC.quest = quiz?.questions[index!]
             editQuestionVC.quiz = self.quiz!
             editQuestionVC.isCreating = false
 

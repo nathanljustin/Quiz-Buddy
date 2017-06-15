@@ -6,17 +6,11 @@
 //  Copyright © 2017 Nathan Justin. All rights reserved.
 //
 import Gloss
-import Realm
+import RealmSwift
 
-class RLMString: RLMObject {
+class RLMString: Object {
     
-    var string: String
-    
-    override init() {
-        string = ""
-        super.init()
-        //Do nothing
-    }
+    var string: String = ""
     
     func getString() -> String {
         return string
