@@ -11,6 +11,8 @@ import Gloss
 import Realm
 
 class QuizTableViewController: UITableViewController {
+    
+    var indexChosen: UInt?
 
     var quizzes: RLMResults<Quiz> {
         get {
@@ -58,6 +60,9 @@ class QuizTableViewController: UITableViewController {
         return cell as UITableViewCell
     }
     
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        indexChosen = UInt(indexPath.row)
+    }
 
     /*
     // Override to support conditional editing of the table view.
@@ -103,11 +108,13 @@ class QuizTableViewController: UITableViewController {
             let navigationVC = segue.destination as! UINavigationController
             let createVC = navigationVC.topViewController as! EditQuizViewController
             createVC.isCreating = true
+            createVC.quiz = Quiz()
         }
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+        if segue.identifier == "optionsSegue" {
+            let optionsVC = segue.destination as! QuizOptionsTableViewController
+            optionsVC.quiz = quizzes.object(at: indexChosen!)
+        }
     }
- 
 
 }
 

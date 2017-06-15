@@ -5,7 +5,6 @@
 //  Created by Nathan Justin on 6/13/17.
 //  Copyright © 2017 Nathan Justin. All rights reserved.
 //
-
 import Realm
 
 class Question: RLMObject {
@@ -19,11 +18,3 @@ class Quiz: RLMObject {
     let questions = RLMArray(objectClassName: "Question")
     dynamic var prevScore = 0
 }
-
-/*
-class UserData: RLMObject {
-    dynamic var userID = ""
-    dynamic var photoURL: URL? = nil
-    let quizzes = List<Quiz>()
-}
-*/

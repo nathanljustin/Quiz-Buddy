@@ -151,6 +151,12 @@ class SettingsTableViewController: UITableViewController, UIImagePickerControlle
             }
         }
     }
+    
+    @IBAction func doneAction(_ sender: Any) {
+        dismiss(animated: true, completion: nil)
+    }
+
+    
 
     /*
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

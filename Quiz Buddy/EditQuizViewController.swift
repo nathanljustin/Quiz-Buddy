@@ -7,13 +7,17 @@
 //
 
 import UIKit
+import Realm
 
 class EditQuizViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var nameText: UITextField!
+    @IBOutlet weak var navItem: UINavigationItem!
     
     var isCreating: Bool?
+    var quiz: Quiz?
+    var index: UInt?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,10 +30,21 @@ class EditQuizViewController: UIViewController, UITableViewDelegate, UITableView
         // This view controller itself will provide the delegate methods and row data for the table view.
         tableView.delegate = self
         tableView.dataSource = self
+        
+        if isCreating == false {
+            nameText.text = quiz?.name
+        }
+        
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        
+    override func viewWillAppear(_ animated: Bool) {
+        if isCreating == true {
+            navItem.title = "Create Quiz"
+        }
+        else {
+            navItem.title = "Edit Quiz"
+        }
+        self.tableView.reloadData()
     }
     
     override func didReceiveMemoryWarning() {
@@ -42,7 +57,8 @@ class EditQuizViewController: UIViewController, UITableViewDelegate, UITableView
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 0
+        
+        return Int((quiz?.questions.count)!)
     }
     
     // create a cell for each table view row
@@ -52,22 +68,56 @@ class EditQuizViewController: UIViewController, UITableViewDelegate, UITableView
         let cell:UITableViewCell = self.tableView.dequeueReusableCell(withIdentifier: "questionCell", for: indexPath) 
         
         // Insert info
+        let quest = quiz?.questions.object(at: UInt(indexPath.row)) as! Question
+        cell.textLabel?.text = quest.question
+        cell.detailTextLabel?.text = "Answer: \(quest.correct)"
         
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        // Nothing yet
+        index = UInt(indexPath.row)
+        performSegue(withIdentifier: "editQuestionSegue", sender: nil)
     }
     
-    /*
+    @IBAction func saveAction(_ sender: Any) {
+        quiz?.name = nameText.text!
+        
+        if isCreating == true {
+            let realm = RLMRealm.default()
+            realm.beginWriteTransaction()
+            realm.add(quiz!)
+            print("Realm URL: \(realm.configuration.fileURL!.absoluteString)")
+            do {
+                try realm.commitWriteTransactionWithoutNotifying([])
+            } catch {
+                print("Error")
+            }
+        }
+        
+        dismiss(animated: true, completion: nil)
+    }
+    
      // MARK: - Navigation
      
      // In a storyboard-based application, you will often want to do a little preparation before navigation
      override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-     // Get the new view controller using segue.destinationViewController.
-     // Pass the selected object to the new view controller.
+        if segue.identifier == "addQuestionSegue" {
+            let navVC = segue.destination as! UINavigationController
+            let editQuestionVC = navVC.topViewController as! EditQuestionViewController
+            editQuestionVC.quest = Question()
+            editQuestionVC.quiz = self.quiz!
+            editQuestionVC.isCreating = true
+        }
+        if segue.identifier == "editQuestionSegue" {
+            let navVC = segue.destination as! UINavigationController
+            let editQuestionVC = navVC.topViewController as! EditQuestionViewController
+            editQuestionVC.quest = quiz?.questions.object(at: index!) as? Question
+            editQuestionVC.quiz = self.quiz!
+            editQuestionVC.isCreating = false
+
+        }
      }
-     */
+    
     
 }

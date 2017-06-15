@@ -5,7 +5,6 @@
 //  Created by Nathan Justin on 6/13/17.
 //  Copyright © 2017 Nathan Justin. All rights reserved.
 //
-
 import Gloss
 import Realm
 
@@ -32,13 +31,13 @@ class RLMString: RLMObject {
 class QuestionDto: Decodable, Glossy {
     var question: String
     var correct: String
-    var incorrect: RLMArray<RLMString>?
+    var incorrect: [RLMString]
     var prevScore: Int
     
     init?() {
         self.question = ""
         self.correct = ""
-        self.incorrect = nil
+        self.incorrect = []
         self.prevScore = 0
     }
     
@@ -83,32 +82,3 @@ class QuizDto: Decodable, Glossy {
             ])
     }
 }
-/*
-class UserDataDto: Decodable, Glossy {
-    var userID: String
-    var photoURL: URL
-    var quizzes: List<Quiz>
-    
-    init?() {
-        self.userID = ""
-        self.photoURL = nil
-        self.quizzes = List<Quiz>()
-    }
-    
-    required init?(json: JSON) {
-        self.userID = "userID" <~~ json
-        self.photoURL = "photoURL" <~~ json
-        self.quizzes = "quizzes" <~~ json
-    }
-    
-    func toJSON() -> JSON? {
-        return jsonify([
-            "userID" ~~> self.userID,
-            "photoURL" ~~> self.photoURL,
-            "quizzes" ~~> self.quizzes
-            ])
-    }
-
-    
-}
-*/
