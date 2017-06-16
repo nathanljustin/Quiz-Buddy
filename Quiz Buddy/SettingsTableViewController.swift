@@ -10,10 +10,12 @@ import UIKit
 import FirebaseStorage
 import FirebaseAuth
 import Alamofire
+import FacebookCore
 
 class SettingsTableViewController: UITableViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
     @IBOutlet weak var imageView: UIImageView!
+    @IBOutlet weak var usernameLabel: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,9 +27,8 @@ class SettingsTableViewController: UITableViewController, UIImagePickerControlle
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
     }
     
-    override func viewDidAppear(_ animated: Bool){
+    override func viewWillAppear(_ animated: Bool){
         if UserDefaults.standard.string(forKey: "imageURL") != nil {
-            //print(UserDefaults.standard.string(forKey: "imageURL"))
             let reference = Storage.storage().reference(withPath: UserDefaults.standard.string(forKey: "imageURL")!)
             reference.getData(maxSize: 1 * 1024 * 1024) { data, error in
                 if error != nil {
@@ -37,6 +38,11 @@ class SettingsTableViewController: UITableViewController, UIImagePickerControlle
                     self.imageView.image = UIImage(data: data!)
                 }
             }
+        }
+        if (AccessToken.current?.authenticationToken != nil) {
+            let user = Auth.auth().currentUser
+            usernameLabel.text = user?.displayName
+            tableView.reloadData()
         }
     }
 
@@ -78,9 +84,6 @@ class SettingsTableViewController: UITableViewController, UIImagePickerControlle
         
         // Set image to display the selected image.
         imageView.image = selectedImage
-        
-        // Dismiss the picker.
-        dismiss(animated: true, completion: nil)
         
         ////
         let image = imageView.image
@@ -150,6 +153,8 @@ class SettingsTableViewController: UITableViewController, UIImagePickerControlle
                 }
             }
         }
+        // Dismiss the picker.
+        dismiss(animated: true, completion: nil)
     }
     
     @IBAction func doneAction(_ sender: Any) {

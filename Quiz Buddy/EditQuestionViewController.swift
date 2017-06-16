@@ -17,10 +17,12 @@ class EditQuestionViewController: UIViewController {
     @IBOutlet weak var incorrectB: UITextField!
     @IBOutlet weak var incorrectC: UITextField!
     @IBOutlet weak var navItem: UINavigationItem!
+    @IBOutlet weak var deleteButton: UIButton!
     
     var quest: Question?
     var quiz: Quiz?
-    var isCreating: Bool?
+    var isCreatingQuest: Bool?
+    var isCreatingQuiz: Bool?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,7 +34,7 @@ class EditQuestionViewController: UIViewController {
         questionText.text = quest?.question
         answerText.text = quest?.correct
         let inc = quest?.incorrect
-        if isCreating == true {
+        if isCreatingQuest == true {
             let string = RLMString()
             string.string = ""
             for _ in 0...2 { // Add 3 empty strings
@@ -47,11 +49,15 @@ class EditQuestionViewController: UIViewController {
         let incC = inc?[2]
         incorrectC.text = incC?.getString()
         
-        if isCreating == true {
+        if isCreatingQuest == true {
             navItem.title = "Create Question"
         }
         else {
             navItem.title = "Edit Question"
+        }
+        
+        if isCreatingQuest == true {
+            deleteButton.isHidden = true
         }
     }
 
@@ -61,29 +67,89 @@ class EditQuestionViewController: UIViewController {
     }
     
     @IBAction func saveAction(_ sender: Any) {
-        quest?.question = questionText.text
-        quest?.correct = answerText.text!
+        if isCreatingQuiz == true {
+            quest?.question = questionText.text
+            quest?.correct = answerText.text!
         
-        quest?.incorrect.removeAll()
+            quest?.incorrect.removeAll()
         
-        let incA = RLMString()
-        incA.setString(string: incorrectA.text!)
-        quest?.incorrect.append(incA)
+            let incA = RLMString()
+            incA.setString(string: incorrectA.text!)
+            quest?.incorrect.append(incA)
         
-        let incB = RLMString()
-        incB.setString(string: incorrectB.text!)
-        quest?.incorrect.append(incB)
+            let incB = RLMString()
+            incB.setString(string: incorrectB.text!)
+            quest?.incorrect.append(incB)
         
-        let incC = RLMString()
-        incC.setString(string: incorrectC.text!)
-        quest?.incorrect.append(incC)
+            let incC = RLMString()
+            incC.setString(string: incorrectC.text!)
+            quest?.incorrect.append(incC)
         
-        if isCreating == true {
-            quiz?.questions.insert(quest!, at: (quiz?.questions.count)!)
+            if isCreatingQuest == true {
+                quiz?.questions.insert(quest!, at: (quiz?.questions.count)!)
+            }
+        }
+        else {
+            let realm = try! Realm()
+            try! realm.write() {
+                quest?.question = questionText.text
+                quest?.correct = answerText.text!
+                
+                quest?.incorrect.removeAll()
+                
+                let incA = RLMString()
+                incA.setString(string: incorrectA.text!)
+                quest?.incorrect.append(incA)
+                
+                let incB = RLMString()
+                incB.setString(string: incorrectB.text!)
+                quest?.incorrect.append(incB)
+                
+                let incC = RLMString()
+                incC.setString(string: incorrectC.text!)
+                quest?.incorrect.append(incC)
+                
+                if isCreatingQuest == true {
+                    quiz?.questions.insert(quest!, at: (quiz?.questions.count)!)
+                }
+            }
         }
         
         dismiss(animated: true, completion: nil)
     }
+
+    @IBAction func cancelAction(_ sender: Any) {
+        dismiss(animated: true, completion: nil)
+    }
+    
+    @IBAction func deleteAction(_ sender: Any) {
+        let alertController = UIAlertController(title: "Delete this Question?", message: "This action cannot be undone", preferredStyle: .alert)
+        
+        // Now adding the default action to the alert controller
+        alertController.addAction(UIAlertAction(title: "Yes", style: .default, handler: yesDelete))
+        alertController.addAction(UIAlertAction(title: "No", style: .default, handler: nil))
+        
+        self.present(alertController, animated: true, completion: nil)
+        // Delete the quiz from Realm
+        return
+
+    }
+    
+    func yesDelete(action: UIAlertAction) {
+        if isCreatingQuiz == true {
+            let index = quiz?.questions.index(of: quest!)
+            quiz?.questions.remove(objectAtIndex: index!)
+        }
+        else if isCreatingQuiz == false {
+            let realm = try! Realm()
+            try! realm.write() {
+                realm.delete((quest?.incorrect)!)
+                realm.delete(quest!)
+            }
+        }
+        dismiss(animated: true, completion: nil)
+    }
+    
 
     /*
     // MARK: - Navigation

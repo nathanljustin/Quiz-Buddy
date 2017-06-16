@@ -9,44 +9,44 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Quiz Buddy/QuestionsViewController.swift"
-            timestampString = "519292905.761331"
+            filePath = "Quiz Buddy/SettingsTableViewController.swift"
+            timestampString = "519301695.810698"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "92"
-            endingLineNumber = "92"
-            landmarkName = "tableView(_:cellForRowAt:)"
+            startingLineNumber = "124"
+            endingLineNumber = "124"
+            landmarkName = "imagePickerController(_:didFinishPickingMediaWithInfo:)"
             landmarkType = "7">
             <Locations>
                <Location
                   shouldBeEnabled = "No"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "Quiz_Buddy.QuestionsViewController.tableView (__ObjC.UITableView, cellForRowAt : Foundation.IndexPath) -&gt; __ObjC.UITableViewCell"
+                  symbolName = "Quiz_Buddy.SettingsTableViewController.imagePickerController (__ObjC.UIImagePickerController, didFinishPickingMediaWithInfo : Swift.Dictionary&lt;Swift.String, Any&gt;) -&gt; ()"
                   moduleName = "Quiz Buddy"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/nathan_justin/Documents/iXperience/Quiz-Buddy/Quiz%20Buddy/QuestionsViewController.swift"
-                  timestampString = "519292703.183711"
+                  urlString = "file:///Users/nathan_justin/Documents/iXperience/Quiz-Buddy/Quiz%20Buddy/SettingsTableViewController.swift"
+                  timestampString = "519295380.48802"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "92"
-                  endingLineNumber = "92"
-                  offsetFromSymbolStart = "3175">
+                  startingLineNumber = "118"
+                  endingLineNumber = "118"
+                  offsetFromSymbolStart = "3235">
                </Location>
                <Location
                   shouldBeEnabled = "No"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "Quiz_Buddy.QuestionsViewController.tableView (__ObjC.UITableView, cellForRowAt : Foundation.IndexPath) -&gt; __ObjC.UITableViewCell"
+                  symbolName = "Quiz_Buddy.SettingsTableViewController.(imagePickerController (__ObjC.UIImagePickerController, didFinishPickingMediaWithInfo : Swift.Dictionary&lt;Swift.String, Any&gt;) -&gt; ()).(closure #3)"
                   moduleName = "Quiz Buddy"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/nathan_justin/Documents/iXperience/Quiz-Buddy/Quiz%20Buddy/QuestionsViewController.swift"
-                  timestampString = "519292703.186379"
+                  urlString = "file:///Users/nathan_justin/Documents/iXperience/Quiz-Buddy/Quiz%20Buddy/SettingsTableViewController.swift"
+                  timestampString = "519295380.490321"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "92"
-                  endingLineNumber = "92"
-                  offsetFromSymbolStart = "11034">
+                  startingLineNumber = "120"
+                  endingLineNumber = "120"
+                  offsetFromSymbolStart = "15">
                </Location>
             </Locations>
          </BreakpointContent>
@@ -57,94 +57,14 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Quiz Buddy/QuestionsViewController.swift"
-            timestampString = "519292905.761331"
+            filePath = "Quiz Buddy/SettingsTableViewController.swift"
+            timestampString = "519301005.138375"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "94"
-            endingLineNumber = "94"
-            landmarkName = "tableView(_:cellForRowAt:)"
+            startingLineNumber = "30"
+            endingLineNumber = "30"
+            landmarkName = "viewWillAppear(_:)"
             landmarkType = "7">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "Quiz_Buddy.QuestionsViewController.tableView (__ObjC.UITableView, cellForRowAt : Foundation.IndexPath) -&gt; __ObjC.UITableViewCell"
-                  moduleName = "Quiz Buddy"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/nathan_justin/Documents/iXperience/Quiz-Buddy/Quiz%20Buddy/QuestionsViewController.swift"
-                  timestampString = "519292905.865819"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "94"
-                  endingLineNumber = "94"
-                  offsetFromSymbolStart = "4011">
-               </Location>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "Quiz_Buddy.QuestionsViewController.tableView (__ObjC.UITableView, cellForRowAt : Foundation.IndexPath) -&gt; __ObjC.UITableViewCell"
-                  moduleName = "Quiz Buddy"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/nathan_justin/Documents/iXperience/Quiz-Buddy/Quiz%20Buddy/QuestionsViewController.swift"
-                  timestampString = "519292905.868365"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "94"
-                  endingLineNumber = "94"
-                  offsetFromSymbolStart = "12019">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Quiz Buddy/QuestionsViewController.swift"
-            timestampString = "519292936.279496"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "93"
-            endingLineNumber = "93"
-            landmarkName = "tableView(_:cellForRowAt:)"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "Quiz_Buddy.QuestionsViewController.tableView (__ObjC.UITableView, cellForRowAt : Foundation.IndexPath) -&gt; __ObjC.UITableViewCell"
-                  moduleName = "Quiz Buddy"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/nathan_justin/Documents/iXperience/Quiz-Buddy/Quiz%20Buddy/QuestionsViewController.swift"
-                  timestampString = "519292936.283286"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "94"
-                  endingLineNumber = "94"
-                  offsetFromSymbolStart = "4011">
-               </Location>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "Quiz_Buddy.QuestionsViewController.tableView (__ObjC.UITableView, cellForRowAt : Foundation.IndexPath) -&gt; __ObjC.UITableViewCell"
-                  moduleName = "Quiz Buddy"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/nathan_justin/Documents/iXperience/Quiz-Buddy/Quiz%20Buddy/QuestionsViewController.swift"
-                  timestampString = "519292936.285783"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "94"
-                  endingLineNumber = "94"
-                  offsetFromSymbolStart = "12019">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

@@ -55,6 +55,7 @@ class QuestionsViewController: UIViewController, UITableViewDelegate, UITableVie
         currentQuestion = 0
         
         navItem.title = "Question 1"
+        questionLabel.text = quiz?.questions[Int((order?[0])!)].question
         
         tableView.reloadData()
         
@@ -83,13 +84,6 @@ class QuestionsViewController: UIViewController, UITableViewDelegate, UITableVie
         //correctAnswer.setString(string: (quiz?.questions[Int((order?[currentQuestion!])!)].correct)!)
         
         var answers: [String] = []
-        
-        let inc = quiz?.questions[Int((order?[currentQuestion!])!)].incorrect
-        print(quiz?.questions[Int((order?[currentQuestion!])!)].incorrect[0])
-        print(quiz?.questions[Int((order?[currentQuestion!])!)].incorrect[1])
-        print(quiz?.questions[Int((order?[currentQuestion!])!)].incorrect[2])
-        
-        let one = quiz?.questions[Int((order?[currentQuestion!])!)].incorrect[0].string
         
         answers.append((quiz?.questions[Int((order?[currentQuestion!])!)].correct)!)
         answers.append((quiz?.questions[Int((order?[currentQuestion!])!)].incorrect[0])!.getString())
@@ -137,6 +131,7 @@ class QuestionsViewController: UIViewController, UITableViewDelegate, UITableVie
         else {
             currentQuestion = currentQuestion! + 1
             navItem.title = "Question \(currentQuestion! + 1)"
+            questionLabel.text = quiz!.questions[Int((order?[currentQuestion!])!)].question
             getOrderOfAnswers()
             tableView.reloadData()
         }

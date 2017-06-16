@@ -82,14 +82,21 @@ class EditQuizViewController: UIViewController, UITableViewDelegate, UITableView
     }
     
     @IBAction func saveAction(_ sender: Any) {
-        quiz?.name = nameText.text!
-        quiz?.numberOfQuestions = (quiz?.questions.count)!
+        
+        let realm = try! Realm()
         
         if isCreating == true {
-            let realm = try! Realm()
+            quiz?.name = nameText.text!
+            quiz?.numberOfQuestions = (quiz?.questions.count)!
             try! realm.write {
                 realm.add(quiz!)
                 print("Path to realm file: " + realm.configuration.fileURL!.absoluteString)
+            }
+        }
+        else {
+            try! realm.write {
+                quiz?.name = nameText.text!
+                quiz?.numberOfQuestions = (quiz?.questions.count)!
             }
         }
         
@@ -109,15 +116,16 @@ class EditQuizViewController: UIViewController, UITableViewDelegate, UITableView
             let editQuestionVC = navVC.topViewController as! EditQuestionViewController
             editQuestionVC.quest = Question()
             editQuestionVC.quiz = self.quiz!
-            editQuestionVC.isCreating = true
+            editQuestionVC.isCreatingQuest = true
+            editQuestionVC.isCreatingQuiz = isCreating
         }
         if segue.identifier == "editQuestionSegue" {
             let navVC = segue.destination as! UINavigationController
             let editQuestionVC = navVC.topViewController as! EditQuestionViewController
             editQuestionVC.quest = quiz?.questions[index!]
             editQuestionVC.quiz = self.quiz!
-            editQuestionVC.isCreating = false
-
+            editQuestionVC.isCreatingQuest = false
+            editQuestionVC.isCreatingQuiz = isCreating
         }
      }
     

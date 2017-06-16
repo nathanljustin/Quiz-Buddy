@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import RealmSwift
 
 class QuizOptionsTableViewController: UITableViewController {
     
@@ -47,9 +48,29 @@ class QuizOptionsTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.row == 2 {
-            // Popup saying are you sure
+            
+            let alertController = UIAlertController(title: "Delete this Quiz?", message: "This action cannot be undone", preferredStyle: .alert)
+            
+            // Now adding the default action to the alert controller
+            alertController.addAction(UIAlertAction(title: "Yes", style: .default, handler: yesDelete))
+            alertController.addAction(UIAlertAction(title: "No", style: .default, handler: nil))
+            
+            self.present(alertController, animated: true, completion: nil)
             // Delete the quiz from Realm
+            return
         }
+    }
+    
+    func yesDelete(action: UIAlertAction) {
+        let realm = try! Realm()
+        try! realm.write() {
+            for quest in (quiz?.questions)! {
+                realm.delete(quest.incorrect)
+            }
+            realm.delete((quiz?.questions)!)
+            realm.delete(quiz!)
+        }
+        self.navigationController?.popViewController(animated: true)
     }
 
     /*

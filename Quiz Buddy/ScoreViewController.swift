@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import RealmSwift
 
 class ScoreViewController: UIViewController {
 
@@ -29,6 +30,10 @@ class ScoreViewController: UIViewController {
         scoreLabel.text = String(describing: score!)
         outOfLabel.text = "out of \(String(describing: (quiz?.questions.count)!))"
         prevScoreLabel.text = "Previous Score: \(String(describing: (quiz?.prevScore)!))"
+        let realm = try! Realm()
+        try! realm.write() {
+            quiz?.prevScore = score!
+        }
     }
 
     override func didReceiveMemoryWarning() {
