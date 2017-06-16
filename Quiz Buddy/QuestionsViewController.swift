@@ -15,17 +15,15 @@ class QuestionsViewController: UIViewController, UITableViewDelegate, UITableVie
     @IBOutlet weak var questionLabel: UILabel!
     @IBOutlet weak var navItem: UINavigationItem!
     
-    var quiz: Quiz?
-    var score: Int?
-    var order:[UInt]?
-    var currentCorrect: UInt?
-    var currentQuestion: Int?
-    var orderOfAns: [UInt] = []
+    var quiz: Quiz? // Current quiz
+    var score: Int? // Current score of user
+    var order:[UInt]? // Order of questions
+    var currentCorrect: UInt? // Index of current correct answer (0 = A, 1 = B, etc.)
+    var currentQuestion: Int? // Current question number
+    var orderOfAns: [UInt] = [] // Order of answers for the current question
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
         
         // This view controller itself will provide the delegate methods and row data for the table view.
         tableView.delegate = self
@@ -33,9 +31,15 @@ class QuestionsViewController: UIViewController, UITableViewDelegate, UITableVie
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        
         if quiz == nil {
-            print("Error getting quiz")
+            // Error handle not getting the quiz
+            let alertController = UIAlertController(title: "Error loading quiz", message: "Please try again.", preferredStyle: .alert)
+            
+            // Now adding the default action to the alert controller
+            alertController.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+            
+            self.present(alertController, animated: true, completion: nil)
+            
             return
         }
         
@@ -50,15 +54,19 @@ class QuestionsViewController: UIViewController, UITableViewDelegate, UITableVie
             }
         }
         
+        // Initialize variables needed
         score = 0
         currentCorrect = 0
         currentQuestion = 0
         
+        // Set initial labels
         navItem.title = "Question 1"
         questionLabel.text = quiz?.questions[Int((order?[0])!)].question
         
+        // Update table
         tableView.reloadData()
         
+        // Get initial order of answers
         self.getOrderOfAnswers()
     }
 
@@ -78,24 +86,21 @@ class QuestionsViewController: UIViewController, UITableViewDelegate, UITableVie
     // create a cell for each table view row
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        // Get answers
-        //let question = quiz?.questions[Int((order?[currentQuestion!])!)]
-        //let correctAnswer = RLMString()
-        //correctAnswer.setString(string: (quiz?.questions[Int((order?[currentQuestion!])!)].correct)!)
+        var answers: [String] = [] // Stores answers to current question
         
-        var answers: [String] = []
-        
+        // Put all answers into the array
         answers.append((quiz?.questions[Int((order?[currentQuestion!])!)].correct)!)
         answers.append((quiz?.questions[Int((order?[currentQuestion!])!)].incorrect[0])!.getString())
         answers.append((quiz?.questions[Int((order?[currentQuestion!])!)].incorrect[1])!.string)
         answers.append((quiz?.questions[Int((order?[currentQuestion!])!)].incorrect[2])!.string)
         
+        // The first answer appended is the correct answer
         currentCorrect = UInt((orderOfAns.index(of: 0)!))
         
         // create a new cell if needed or reuse an old one
         let cell = tableView.dequeueReusableCell(withIdentifier: "answerCell", for: indexPath) as! AnswerTableViewCell
                 
-        // Insert info
+        // Insert info for each line
         if indexPath.row == 0 {
             cell.letterLabel.text = "A"
             cell.answerLabel.text = answers[Int((orderOfAns[0]))]
@@ -120,15 +125,18 @@ class QuestionsViewController: UIViewController, UITableViewDelegate, UITableVie
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        // If selected the current answer, add a point
         if UInt(indexPath.row) == currentCorrect {
             score = score! + 1
         }
         
+        // If it is the last question, go to score view
         if currentQuestion! + 1 == (quiz?.numberOfQuestions)! {
             performSegue(withIdentifier: "scoreSegue", sender: nil)
             return
         }
         else {
+            // Update the screen for the next question
             currentQuestion = currentQuestion! + 1
             navItem.title = "Question \(currentQuestion! + 1)"
             questionLabel.text = quiz!.questions[Int((order?[currentQuestion!])!)].question
@@ -142,9 +150,10 @@ class QuestionsViewController: UIViewController, UITableViewDelegate, UITableVie
         dismiss(animated: true, completion: nil)
     }
     
+    // Helper function that generates a random order of the answers for each question
     func getOrderOfAnswers() {
-        // Get ordering of answers
         orderOfAns.removeAll()
+        
         while orderOfAns.count != 4 {
             let rand = arc4random_uniform(4)
             if !orderOfAns.contains(UInt(rand)) {
@@ -157,6 +166,7 @@ class QuestionsViewController: UIViewController, UITableViewDelegate, UITableVie
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        // Go to score view controller with the final score
         if segue.identifier == "scoreSegue" {
             let scoreVC = segue.destination as! ScoreViewController
             scoreVC.score = self.score!

@@ -26,6 +26,7 @@ class QuizOptionsTableViewController: UITableViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        // Set title of screen as quiz name
         navBar.title = quiz?.name
     }
 
@@ -47,8 +48,10 @@ class QuizOptionsTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        // If delete is pressed
         if indexPath.row == 2 {
             
+            // Alert the user that this is an irreversible action
             let alertController = UIAlertController(title: "Delete this Quiz?", message: "This action cannot be undone", preferredStyle: .alert)
             
             // Now adding the default action to the alert controller
@@ -56,18 +59,25 @@ class QuizOptionsTableViewController: UITableViewController {
             alertController.addAction(UIAlertAction(title: "No", style: .default, handler: nil))
             
             self.present(alertController, animated: true, completion: nil)
-            // Delete the quiz from Realm
+
             return
         }
     }
     
+    // Delete the current quiz from Realm
     func yesDelete(action: UIAlertAction) {
         let realm = try! Realm()
         try! realm.write() {
+            // Must delete all layers to save space in memory for user
+            // Delete incorrect answers
             for quest in (quiz?.questions)! {
                 realm.delete(quest.incorrect)
             }
+            
+            // Delete questions
             realm.delete((quiz?.questions)!)
+            
+            // Delete quiz
             realm.delete(quiz!)
         }
         self.navigationController?.popViewController(animated: true)
@@ -123,12 +133,14 @@ class QuizOptionsTableViewController: UITableViewController {
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        // If chooses to edit the quiz
         if segue.identifier == "editQuizSegue" {
             let navVC = segue.destination as! UINavigationController
             let editVC = navVC.topViewController as! EditQuizViewController
             editVC.isCreating = false
             editVC.quiz = self.quiz
         }
+        // If chooses to start quiz
         if segue.identifier == "startSegue" {
             let navVC = segue.destination as! UINavigationController
             let questVC = navVC.topViewController as! QuestionsViewController

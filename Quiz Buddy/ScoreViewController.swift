@@ -16,8 +16,8 @@ class ScoreViewController: UIViewController {
     @IBOutlet weak var prevScoreLabel: UILabel!
     
     
-    var quiz: Quiz?
-    var score: Int?
+    var quiz: Quiz? // Current quiz
+    var score: Int? // Final score
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,9 +27,12 @@ class ScoreViewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        // Display final score
         scoreLabel.text = String(describing: score!)
         outOfLabel.text = "out of \(String(describing: (quiz?.questions.count)!))"
         prevScoreLabel.text = "Previous Score: \(String(describing: (quiz?.prevScore)!))"
+        
+        // Save final score as the previous score on Realm
         let realm = try! Realm()
         try! realm.write() {
             quiz?.prevScore = score!

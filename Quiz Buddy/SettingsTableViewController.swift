@@ -28,6 +28,7 @@ class SettingsTableViewController: UITableViewController, UIImagePickerControlle
     }
     
     override func viewWillAppear(_ animated: Bool){
+        // Set the picture as the one stored in Firebase
         if UserDefaults.standard.string(forKey: "imageURL") != nil {
             let reference = Storage.storage().reference(withPath: UserDefaults.standard.string(forKey: "imageURL")!)
             reference.getData(maxSize: 1 * 1024 * 1024) { data, error in
@@ -39,6 +40,8 @@ class SettingsTableViewController: UITableViewController, UIImagePickerControlle
                 }
             }
         }
+        
+        // Display the username based on Facebook login
         if (AccessToken.current?.authenticationToken != nil) {
             let user = Auth.auth().currentUser
             usernameLabel.text = user?.displayName
@@ -64,7 +67,9 @@ class SettingsTableViewController: UITableViewController, UIImagePickerControlle
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath){
+        // If setting profile picture is chosen
         if indexPath.row == 2 {
+            // Present image picker
             let imagePickerController = UIImagePickerController()
             imagePickerController.sourceType = .photoLibrary
             imagePickerController.delegate = self as UIImagePickerControllerDelegate & UINavigationControllerDelegate
