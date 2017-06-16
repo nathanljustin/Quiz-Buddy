@@ -10,6 +10,8 @@ import UIKit
 
 class QuizOptionsTableViewController: UITableViewController {
     
+    @IBOutlet weak var navBar: UINavigationItem!
+    
     var quiz: Quiz?
 
     override func viewDidLoad() {
@@ -20,6 +22,10 @@ class QuizOptionsTableViewController: UITableViewController {
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        navBar.title = quiz?.name
     }
 
     override func didReceiveMemoryWarning() {
@@ -101,6 +107,11 @@ class QuizOptionsTableViewController: UITableViewController {
             let editVC = navVC.topViewController as! EditQuizViewController
             editVC.isCreating = false
             editVC.quiz = self.quiz
+        }
+        if segue.identifier == "startSegue" {
+            let navVC = segue.destination as! UINavigationController
+            let questVC = navVC.topViewController as! QuestionsViewController
+            questVC.quiz = self.quiz
         }
     }
     

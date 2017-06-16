@@ -20,15 +20,19 @@ class QuizTableViewController: UITableViewController {
         super.viewDidLoad()
         
         indexChosen = 0
-
-        let realm = try! Realm()
-        quizzes = realm.objects(Quiz.self)
         
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        let realm = try! Realm()
+        quizzes = realm.objects(Quiz.self)
+        
+        tableView.reloadData()
     }
 
     override func didReceiveMemoryWarning() {
@@ -53,9 +57,14 @@ class QuizTableViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "quizCell", for: indexPath) as! QuizTableViewCell
         
         cell.name.text = quizzes?[indexPath.row].name
-        cell.number.text = "Number of Questions: \(String(describing: quizzes?[indexPath.row].questions.count))"
-        cell.prevScore.text = "Previous Score: \(String(describing: quizzes?[indexPath.row].prevScore))"
-
+        let text1: String!
+        text1 = String(describing: (quizzes?[indexPath.row].questions.count)!)
+        cell.number.text = "Number of Questions: \(text1!)"
+        
+        let text2: String!
+        text2 = String(describing: (quizzes?[indexPath.row].prevScore)!)
+        cell.prevScore.text = "Previous Score: \(text2!)"
+        
         // Configure the cell...
 
         return cell as UITableViewCell

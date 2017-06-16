@@ -17,4 +17,5 @@ class Quiz: Object {
     dynamic var name = ""
     let questions = List<Question>()
     dynamic var prevScore = 0
+    dynamic var numberOfQuestions = 0
 }

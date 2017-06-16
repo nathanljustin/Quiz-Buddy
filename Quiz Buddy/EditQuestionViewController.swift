@@ -63,19 +63,20 @@ class EditQuestionViewController: UIViewController {
     @IBAction func saveAction(_ sender: Any) {
         quest?.question = questionText.text
         quest?.correct = answerText.text!
-        let inc = quest?.incorrect
         
-        let incA = inc?[0]
-        let incB = inc?[1]
-        let incC = inc?[2]
+        quest?.incorrect.removeAll()
         
-        incA?.setString(string: incorrectA.text!)
-        incB?.setString(string: incorrectB.text!)
-        incC?.setString(string: incorrectC.text!)
+        let incA = RLMString()
+        incA.setString(string: incorrectA.text!)
+        quest?.incorrect.append(incA)
         
-        print(inc?[0])
-        print(inc?[1])
-        print(inc?[2])
+        let incB = RLMString()
+        incB.setString(string: incorrectB.text!)
+        quest?.incorrect.append(incB)
+        
+        let incC = RLMString()
+        incC.setString(string: incorrectC.text!)
+        quest?.incorrect.append(incC)
         
         if isCreating == true {
             quiz?.questions.insert(quest!, at: (quiz?.questions.count)!)

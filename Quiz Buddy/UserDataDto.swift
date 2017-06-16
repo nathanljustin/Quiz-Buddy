@@ -8,20 +8,6 @@
 import Gloss
 import RealmSwift
 
-class RLMString: Object {
-    
-    var string: String = ""
-    
-    func getString() -> String {
-        return string
-    }
-    
-    func setString(string: String) {
-        self.string = string
-    }
-    
-}
-
 class QuestionDto: Decodable, Glossy {
     var question: String
     var correct: String
@@ -55,24 +41,28 @@ class QuizDto: Decodable, Glossy {
     var name: String
     var questions: [QuestionDto]
     var prevScore = 0
+    var numberOfQuestions = 0
     
     init?() {
         self.name = ""
         self.questions = []
         self.prevScore = 0
+        self.numberOfQuestions = 0
     }
     
     required init?(json: JSON) {
         self.name = ("name" <~~ json)!
         self.questions = ("questions" <~~ json)!
         self.prevScore = ("prevScore" <~~ json)!
+        self.numberOfQuestions = ("numberOfQuestions" <~~ json)!
     }
     
     func toJSON() -> JSON? {
         return jsonify([
             "name" ~~> self.name,
             "questions" ~~> self.questions,
-            "prevScore" ~~> self.prevScore
+            "prevScore" ~~> self.prevScore,
+            "numberOfQuestions" ~~> self.numberOfQuestions
             ])
     }
 }

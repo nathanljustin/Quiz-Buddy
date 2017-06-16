@@ -15,6 +15,7 @@ class EditQuizViewController: UIViewController, UITableViewDelegate, UITableView
     @IBOutlet weak var nameText: UITextField!
     @IBOutlet weak var navItem: UINavigationItem!
     
+    
     var isCreating: Bool?
     var quiz: Quiz?
     var index: Int?
@@ -82,6 +83,7 @@ class EditQuizViewController: UIViewController, UITableViewDelegate, UITableView
     
     @IBAction func saveAction(_ sender: Any) {
         quiz?.name = nameText.text!
+        quiz?.numberOfQuestions = (quiz?.questions.count)!
         
         if isCreating == true {
             let realm = try! Realm()
@@ -91,6 +93,10 @@ class EditQuizViewController: UIViewController, UITableViewDelegate, UITableView
             }
         }
         
+        dismiss(animated: true, completion: nil)
+    }
+    
+    @IBAction func cancelAction(_ sender: Any) {
         dismiss(animated: true, completion: nil)
     }
     
