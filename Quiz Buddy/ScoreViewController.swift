@@ -14,6 +14,7 @@ class ScoreViewController: UIViewController {
     @IBOutlet weak var scoreLabel: UILabel!
     @IBOutlet weak var outOfLabel: UILabel!
     @IBOutlet weak var prevScoreLabel: UILabel!
+    @IBOutlet weak var navItem: UINavigationItem!
     
     
     var quiz: Quiz? // Current quiz
@@ -31,6 +32,7 @@ class ScoreViewController: UIViewController {
         scoreLabel.text = String(describing: score!)
         outOfLabel.text = "out of \(String(describing: (quiz?.questions.count)!))"
         prevScoreLabel.text = "Previous Score: \(String(describing: (quiz?.prevScore)!))"
+        navItem.title = quiz?.name
         
         // Save final score as the previous score on Realm
         let realm = try! Realm()

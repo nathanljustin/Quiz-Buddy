@@ -16,7 +16,6 @@ class EditQuizViewController: UIViewController, UITableViewDelegate, UITableView
     @IBOutlet weak var nameText: UITextField!
     @IBOutlet weak var navItem: UINavigationItem!
     
-    
     var isCreating: Bool? // true if creating, not editing, a quiz
     var quiz: Quiz? // current Quiz
     var index: Int? // holds the index of a selected question
@@ -82,6 +81,18 @@ class EditQuizViewController: UIViewController, UITableViewDelegate, UITableView
         
         let realm = try! Realm()
         
+        if quiz?.questions.count == 0 {
+            // Alert the user that this is an irreversible action
+            let alertController = UIAlertController(title: "Error", message: "Please add a question", preferredStyle: .alert)
+            
+            // Now adding the default action to the alert controller
+            alertController.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+            
+            self.present(alertController, animated: true, completion: nil)
+
+            return
+        }
+        
         // Do different realm writes based on whether we are creating or editing a quiz
         if isCreating == true {
             quiz?.name = nameText.text!
@@ -97,6 +108,7 @@ class EditQuizViewController: UIViewController, UITableViewDelegate, UITableView
                 quiz?.numberOfQuestions = (quiz?.questions.count)!
             }
         }
+
         dismiss(animated: true, completion: nil)
     }
     
