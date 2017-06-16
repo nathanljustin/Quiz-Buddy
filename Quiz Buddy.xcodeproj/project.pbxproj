@@ -11,6 +11,7 @@
 		992575FF1EEF1F1E00CAF974 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 992575FD1EEF1F1E00CAF974 /* Main.storyboard */; };
 		992576011EEF1F1E00CAF974 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 992576001EEF1F1E00CAF974 /* Assets.xcassets */; };
 		992576041EEF1F1E00CAF974 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 992576021EEF1F1E00CAF974 /* LaunchScreen.storyboard */; };
+		99821D371EF3485000434AEE /* RLMString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99821D361EF3485000434AEE /* RLMString.swift */; };
 		99A353C31EEF319900D38418 /* InformationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99A353C21EEF319900D38418 /* InformationViewController.swift */; };
 		99A353C51EEF31C800D38418 /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99A353C41EEF31C800D38418 /* SettingsTableViewController.swift */; };
 		99A353C71EEF32B200D38418 /* QuizTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99A353C61EEF32B200D38418 /* QuizTableViewController.swift */; };
@@ -22,6 +23,7 @@
 		99A353DD1EF03B4C00D38418 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 99A353DC1EF03B4C00D38418 /* GoogleService-Info.plist */; };
 		99A353DF1EF0801700D38418 /* UserData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99A353DE1EF0801700D38418 /* UserData.swift */; };
 		99A353E11EF0802F00D38418 /* UserDataDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99A353E01EF0802F00D38418 /* UserDataDto.swift */; };
+		99C17D931EF309FA00A7D249 /* ScoreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99C17D921EF309FA00A7D249 /* ScoreViewController.swift */; };
 		A9CB20935FD832CE92A253A1 /* Pods_Quiz_Buddy.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FE83B4147CFD659860EB98FD /* Pods_Quiz_Buddy.framework */; };
 /* End PBXBuildFile section */
 
@@ -34,6 +36,7 @@
 		992576001EEF1F1E00CAF974 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		992576031EEF1F1E00CAF974 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		992576051EEF1F1E00CAF974 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		99821D361EF3485000434AEE /* RLMString.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RLMString.swift; sourceTree = "<group>"; };
 		99A353C21EEF319900D38418 /* InformationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InformationViewController.swift; sourceTree = "<group>"; };
 		99A353C41EEF31C800D38418 /* SettingsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
 		99A353C61EEF32B200D38418 /* QuizTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuizTableViewController.swift; sourceTree = "<group>"; };
@@ -45,6 +48,7 @@
 		99A353DC1EF03B4C00D38418 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		99A353DE1EF0801700D38418 /* UserData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserData.swift; sourceTree = "<group>"; };
 		99A353E01EF0802F00D38418 /* UserDataDto.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDataDto.swift; sourceTree = "<group>"; };
+		99C17D921EF309FA00A7D249 /* ScoreViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScoreViewController.swift; sourceTree = "<group>"; };
 		FE83B4147CFD659860EB98FD /* Pods_Quiz_Buddy.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Quiz_Buddy.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -90,21 +94,23 @@
 			isa = PBXGroup;
 			children = (
 				992575F91EEF1F1E00CAF974 /* AppDelegate.swift */,
-				99A353D21EF0250B00D38418 /* LoginViewController.swift */,
-				992575FD1EEF1F1E00CAF974 /* Main.storyboard */,
-				99A353DE1EF0801700D38418 /* UserData.swift */,
-				99A353E01EF0802F00D38418 /* UserDataDto.swift */,
+				992576001EEF1F1E00CAF974 /* Assets.xcassets */,
 				99A353CE1EEF3D3000D38418 /* EditQuestionViewController.swift */,
 				99A353CC1EEF3C9500D38418 /* EditQuizViewController.swift */,
-				99A353C81EEF32E000D38418 /* QuizOptionsTableViewController.swift */,
-				99A353C61EEF32B200D38418 /* QuizTableViewController.swift */,
-				99A353C41EEF31C800D38418 /* SettingsTableViewController.swift */,
-				99A353C21EEF319900D38418 /* InformationViewController.swift */,
-				992576001EEF1F1E00CAF974 /* Assets.xcassets */,
-				992576021EEF1F1E00CAF974 /* LaunchScreen.storyboard */,
-				99A353CA1EEF358500D38418 /* QuestionsViewController.swift */,
 				99A353DC1EF03B4C00D38418 /* GoogleService-Info.plist */,
 				992576051EEF1F1E00CAF974 /* Info.plist */,
+				99A353C21EEF319900D38418 /* InformationViewController.swift */,
+				992576021EEF1F1E00CAF974 /* LaunchScreen.storyboard */,
+				99A353D21EF0250B00D38418 /* LoginViewController.swift */,
+				992575FD1EEF1F1E00CAF974 /* Main.storyboard */,
+				99A353CA1EEF358500D38418 /* QuestionsViewController.swift */,
+				99A353C81EEF32E000D38418 /* QuizOptionsTableViewController.swift */,
+				99A353C61EEF32B200D38418 /* QuizTableViewController.swift */,
+				99C17D921EF309FA00A7D249 /* ScoreViewController.swift */,
+				99A353C41EEF31C800D38418 /* SettingsTableViewController.swift */,
+				99A353DE1EF0801700D38418 /* UserData.swift */,
+				99A353E01EF0802F00D38418 /* UserDataDto.swift */,
+				99821D361EF3485000434AEE /* RLMString.swift */,
 			);
 			path = "Quiz Buddy";
 			sourceTree = "<group>";
@@ -254,6 +260,8 @@
 				99A353D31EF0250B00D38418 /* LoginViewController.swift in Sources */,
 				99A353DF1EF0801700D38418 /* UserData.swift in Sources */,
 				99A353CF1EEF3D3000D38418 /* EditQuestionViewController.swift in Sources */,
+				99821D371EF3485000434AEE /* RLMString.swift in Sources */,
+				99C17D931EF309FA00A7D249 /* ScoreViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

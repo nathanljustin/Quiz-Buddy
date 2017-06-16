@@ -5,19 +5,19 @@
 //  Created by Nathan Justin on 6/13/17.
 //  Copyright © 2017 Nathan Justin. All rights reserved.
 //
-
 import Gloss
+import RealmSwift
 
 class QuestionDto: Decodable, Glossy {
     var question: String
     var correct: String
-    var incorrect: Array<String>
+    var incorrect: [RLMString]
     var prevScore: Int
     
     init?() {
         self.question = ""
         self.correct = ""
-        self.incorrect = ["","",""]
+        self.incorrect = []
         self.prevScore = 0
     }
     
@@ -41,53 +41,28 @@ class QuizDto: Decodable, Glossy {
     var name: String
     var questions: [QuestionDto]
     var prevScore = 0
+    var numberOfQuestions = 0
     
     init?() {
         self.name = ""
         self.questions = []
         self.prevScore = 0
+        self.numberOfQuestions = 0
     }
     
     required init?(json: JSON) {
         self.name = ("name" <~~ json)!
         self.questions = ("questions" <~~ json)!
         self.prevScore = ("prevScore" <~~ json)!
+        self.numberOfQuestions = ("numberOfQuestions" <~~ json)!
     }
     
     func toJSON() -> JSON? {
         return jsonify([
             "name" ~~> self.name,
             "questions" ~~> self.questions,
-            "prevScore" ~~> self.prevScore
+            "prevScore" ~~> self.prevScore,
+            "numberOfQuestions" ~~> self.numberOfQuestions
             ])
     }
 }
-/*
-class UserDataDto: Decodable, Glossy {
-    var userID: String
-    var photoURL: URL
-    var quizzes: List<Quiz>
-    
-    init?() {
-        self.userID = ""
-        self.photoURL = nil
-        self.quizzes = List<Quiz>()
-    }
-    
-    required init?(json: JSON) {
-        self.userID = "userID" <~~ json
-        self.photoURL = "photoURL" <~~ json
-        self.quizzes = "quizzes" <~~ json
-    }
-    
-    func toJSON() -> JSON? {
-        return jsonify([
-            "userID" ~~> self.userID,
-            "photoURL" ~~> self.photoURL,
-            "quizzes" ~~> self.quizzes
-            ])
-    }
-
-    
-}
-*/

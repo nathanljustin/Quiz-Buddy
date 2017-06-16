@@ -7,8 +7,13 @@
 //
 
 import UIKit
+import RealmSwift
 
 class QuizOptionsTableViewController: UITableViewController {
+    
+    @IBOutlet weak var navBar: UINavigationItem!
+    
+    var quiz: Quiz?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -18,6 +23,10 @@ class QuizOptionsTableViewController: UITableViewController {
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        navBar.title = quiz?.name
     }
 
     override func didReceiveMemoryWarning() {
@@ -29,12 +38,39 @@ class QuizOptionsTableViewController: UITableViewController {
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return 0
+        return 1
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 0
+        return 3
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if indexPath.row == 2 {
+            
+            let alertController = UIAlertController(title: "Delete this Quiz?", message: "This action cannot be undone", preferredStyle: .alert)
+            
+            // Now adding the default action to the alert controller
+            alertController.addAction(UIAlertAction(title: "Yes", style: .default, handler: yesDelete))
+            alertController.addAction(UIAlertAction(title: "No", style: .default, handler: nil))
+            
+            self.present(alertController, animated: true, completion: nil)
+            // Delete the quiz from Realm
+            return
+        }
+    }
+    
+    func yesDelete(action: UIAlertAction) {
+        let realm = try! Realm()
+        try! realm.write() {
+            for quest in (quiz?.questions)! {
+                realm.delete(quest.incorrect)
+            }
+            realm.delete((quiz?.questions)!)
+            realm.delete(quiz!)
+        }
+        self.navigationController?.popViewController(animated: true)
     }
 
     /*
@@ -82,14 +118,23 @@ class QuizOptionsTableViewController: UITableViewController {
     }
     */
 
-    /*
+    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+        if segue.identifier == "editQuizSegue" {
+            let navVC = segue.destination as! UINavigationController
+            let editVC = navVC.topViewController as! EditQuizViewController
+            editVC.isCreating = false
+            editVC.quiz = self.quiz
+        }
+        if segue.identifier == "startSegue" {
+            let navVC = segue.destination as! UINavigationController
+            let questVC = navVC.topViewController as! QuestionsViewController
+            questVC.quiz = self.quiz
+        }
     }
-    */
-
+    
+    
 }

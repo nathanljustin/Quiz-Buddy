@@ -8,24 +8,31 @@
 
 import UIKit
 import Gloss
-import Realm
+import RealmSwift
 
 class QuizTableViewController: UITableViewController {
-
-    var quizzes: RLMResults<Quiz> {
-        get {
-            return Quiz.allObjects() as! RLMResults<Quiz>
-        }
-    }
+    
+    var indexChosen: Int!
+    
+    var quizzes: Results<Quiz>!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        indexChosen = 0
+        
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        let realm = try! Realm()
+        quizzes = realm.objects(Quiz.self)
+        
+        tableView.reloadData()
     }
 
     override func didReceiveMemoryWarning() {
@@ -42,22 +49,30 @@ class QuizTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return Int(quizzes.count)
+        return Int(quizzes!.count)
     }
 
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "quizCell", for: indexPath) as! QuizTableViewCell
         
-        cell.name.text = quizzes.object(at: UInt(indexPath.row)).name
-        cell.number.text = quizzes.object(at: UInt(indexPath.row)).questions.count as! String
-        cell.prevScore.text = quizzes.object(at: UInt(indexPath.row)).prevScore as! String
-
+        cell.name.text = quizzes?[indexPath.row].name
+        let text1: String!
+        text1 = String(describing: (quizzes?[indexPath.row].questions.count)!)
+        cell.number.text = "Number of Questions: \(text1!)"
+        
+        let text2: String!
+        text2 = String(describing: (quizzes?[indexPath.row].prevScore)!)
+        cell.prevScore.text = "Previous Score: \(text2!)"
+        
         // Configure the cell...
 
         return cell as UITableViewCell
     }
     
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        indexChosen = indexPath.row
+    }
 
     /*
     // Override to support conditional editing of the table view.
@@ -94,15 +109,22 @@ class QuizTableViewController: UITableViewController {
     }
     */
 
-    /*
+    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+        if segue.identifier == "addSegue" {
+            let navigationVC = segue.destination as! UINavigationController
+            let createVC = navigationVC.topViewController as! EditQuizViewController
+            createVC.isCreating = true
+            createVC.quiz = Quiz()
+        }
+        if segue.identifier == "optionsSegue" {
+            let optionsVC = segue.destination as! QuizOptionsTableViewController
+            optionsVC.quiz = quizzes[indexChosen!]
+        }
     }
-    */
 
 }
 

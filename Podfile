@@ -10,7 +10,9 @@ target 'Quiz Buddy' do
   pod 'FacebookLogin'
   pod 'Firebase/Core'
   pod 'Firebase/Auth'
+  pod 'Firebase/Storage'
   pod 'RealmSwift'
   pod 'Gloss', '~> 1.2'
+  pod 'Alamofire', '~> 4.4'
 
 end
