@@ -20,6 +20,7 @@ class QuestionsViewController: UIViewController, UITableViewDelegate, UITableVie
     var order:[UInt]?
     var currentCorrect: UInt?
     var currentQuestion: Int?
+    var orderOfAns: [UInt] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -56,6 +57,8 @@ class QuestionsViewController: UIViewController, UITableViewDelegate, UITableVie
         navItem.title = "Question 1"
         
         tableView.reloadData()
+        
+        self.getOrderOfAnswers()
     }
 
     override func didReceiveMemoryWarning() {
@@ -74,31 +77,26 @@ class QuestionsViewController: UIViewController, UITableViewDelegate, UITableVie
     // create a cell for each table view row
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        // Get ordering of answers
-        var temp:[UInt] = []
-        while temp.count != 4 {
-            let rand = arc4random_uniform(4)
-            if !temp.contains(UInt(rand)) {
-                temp.append(UInt(rand))
-            }
-        }
-        
         // Get answers
-        let question = quiz?.questions[Int((order?[currentQuestion!])!)]
-        let correctAnswer = RLMString()
-        correctAnswer.setString(string: (quiz?.questions[Int((order?[currentQuestion!])!)].correct)!)
+        //let question = quiz?.questions[Int((order?[currentQuestion!])!)]
+        //let correctAnswer = RLMString()
+        //correctAnswer.setString(string: (quiz?.questions[Int((order?[currentQuestion!])!)].correct)!)
         
-        var answers: [RLMString] = []
+        var answers: [String] = []
         
         let inc = quiz?.questions[Int((order?[currentQuestion!])!)].incorrect
-        print(inc)
+        print(quiz?.questions[Int((order?[currentQuestion!])!)].incorrect[0])
+        print(quiz?.questions[Int((order?[currentQuestion!])!)].incorrect[1])
+        print(quiz?.questions[Int((order?[currentQuestion!])!)].incorrect[2])
         
-        answers.append(correctAnswer)
-        answers.append((quiz?.questions[Int((order?[currentQuestion!])!)].incorrect[0])!)
-        answers.append((quiz?.questions[Int((order?[currentQuestion!])!)].incorrect[1])!)
-        answers.append((quiz?.questions[Int((order?[currentQuestion!])!)].incorrect[2])!)
+        let one = quiz?.questions[Int((order?[currentQuestion!])!)].incorrect[0].string
         
-        currentCorrect = UInt(temp.index(of: 0)!)
+        answers.append((quiz?.questions[Int((order?[currentQuestion!])!)].correct)!)
+        answers.append((quiz?.questions[Int((order?[currentQuestion!])!)].incorrect[0])!.getString())
+        answers.append((quiz?.questions[Int((order?[currentQuestion!])!)].incorrect[1])!.string)
+        answers.append((quiz?.questions[Int((order?[currentQuestion!])!)].incorrect[2])!.string)
+        
+        currentCorrect = UInt((orderOfAns.index(of: 0)!))
         
         // create a new cell if needed or reuse an old one
         let cell = tableView.dequeueReusableCell(withIdentifier: "answerCell", for: indexPath) as! AnswerTableViewCell
@@ -106,22 +104,22 @@ class QuestionsViewController: UIViewController, UITableViewDelegate, UITableVie
         // Insert info
         if indexPath.row == 0 {
             cell.letterLabel.text = "A"
-            cell.answerLabel.text = answers[Int(temp[0])].getString()
+            cell.answerLabel.text = answers[Int((orderOfAns[0]))]
         }
-        
+            
         else if indexPath.row == 1 {
             cell.letterLabel.text = "B"
-            cell.answerLabel.text = answers[Int(temp[1])].getString()
+            cell.answerLabel.text = answers[Int((orderOfAns[1]))]
         }
         
         else if indexPath.row == 2 {
             cell.letterLabel.text = "C"
-            cell.answerLabel.text = answers[Int(temp[2])].getString()
+            cell.answerLabel.text = answers[Int((orderOfAns[2]))]
         }
         
         else {
             cell.letterLabel.text = "D"
-            cell.answerLabel.text = answers[Int(temp[3])].getString()
+            cell.answerLabel.text = answers[Int((orderOfAns[3]))]
         }
         
         return cell
@@ -139,6 +137,7 @@ class QuestionsViewController: UIViewController, UITableViewDelegate, UITableVie
         else {
             currentQuestion = currentQuestion! + 1
             navItem.title = "Question \(currentQuestion! + 1)"
+            getOrderOfAnswers()
             tableView.reloadData()
         }
     }
@@ -148,6 +147,16 @@ class QuestionsViewController: UIViewController, UITableViewDelegate, UITableVie
         dismiss(animated: true, completion: nil)
     }
     
+    func getOrderOfAnswers() {
+        // Get ordering of answers
+        orderOfAns.removeAll()
+        while orderOfAns.count != 4 {
+            let rand = arc4random_uniform(4)
+            if !orderOfAns.contains(UInt(rand)) {
+                orderOfAns.append(UInt(rand))
+            }
+        }
+    }
     
     // MARK: - Navigation
 

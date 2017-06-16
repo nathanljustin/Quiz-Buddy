@@ -10,7 +10,7 @@ import RealmSwift
 
 class RLMString: Object {
     
-    var string: String = ""
+    dynamic var string: String = ""
     
     func getString() -> String {
         return string
