@@ -8,14 +8,14 @@
 import RealmSwift
 
 class Question: Object {
-    dynamic var question = ""
-    dynamic var correct = ""
-    let incorrect = List<RLMString>()
+    dynamic var question = "" // question
+    dynamic var correct = "" // correct answer
+    let incorrect = List<RLMString>() // list of incorrect answers
 }
 
 class Quiz: Object {
-    dynamic var name = ""
-    let questions = List<Question>()
-    dynamic var prevScore = 0
-    dynamic var numberOfQuestions = 0
+    dynamic var name = "" // name of quiz
+    let questions = List<Question>() // list of questions
+    dynamic var prevScore = 0 // previous score on quiz
+    dynamic var numberOfQuestions = 0 // number of questions in quiz
 }

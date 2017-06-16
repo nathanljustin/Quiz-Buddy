@@ -10,20 +10,19 @@ import UIKit
 import RealmSwift
 
 class EditQuizViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+    // This class is used for both creating and editing a quiz
     
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var nameText: UITextField!
     @IBOutlet weak var navItem: UINavigationItem!
     
     
-    var isCreating: Bool?
-    var quiz: Quiz?
-    var index: Int?
+    var isCreating: Bool? // true if creating, not editing, a quiz
+    var quiz: Quiz? // current Quiz
+    var index: Int? // holds the index of a selected question
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        // Do any additional setup after loading the view.
         
         // Register the table view cell class and its reuse id
         self.tableView.register(UITableViewCell.self, forCellReuseIdentifier: "questionCell")
@@ -32,25 +31,24 @@ class EditQuizViewController: UIViewController, UITableViewDelegate, UITableView
         tableView.delegate = self
         tableView.dataSource = self
         
-        if isCreating == false {
-            nameText.text = quiz?.name
-        }
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        // Title the view controller appropriately
         if isCreating == true {
             navItem.title = "Create Quiz"
         }
         else {
             navItem.title = "Edit Quiz"
+            // When editing, title the quiz the quiz name
+            nameText.text = quiz?.name
         }
+        
         self.tableView.reloadData()
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -58,25 +56,24 @@ class EditQuizViewController: UIViewController, UITableViewDelegate, UITableView
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
         return Int((quiz?.questions.count)!)
     }
     
     // create a cell for each table view row
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        // create a new cell if needed or reuse an old one
+        // Use the question cell
         let cell:UITableViewCell = self.tableView.dequeueReusableCell(withIdentifier: "questionCell", for: indexPath) 
         
         // Insert info
         let quest = quiz?.questions[indexPath.row]
         cell.textLabel?.text = quest?.question
-        cell.detailTextLabel?.text = "Answer: \(String(describing: quest?.correct))"
         
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        // If a question is selected, can edit question
         index = indexPath.row
         performSegue(withIdentifier: "editQuestionSegue", sender: nil)
     }
@@ -85,6 +82,7 @@ class EditQuizViewController: UIViewController, UITableViewDelegate, UITableView
         
         let realm = try! Realm()
         
+        // Do different realm writes based on whether we are creating or editing a quiz
         if isCreating == true {
             quiz?.name = nameText.text!
             quiz?.numberOfQuestions = (quiz?.questions.count)!
@@ -99,7 +97,6 @@ class EditQuizViewController: UIViewController, UITableViewDelegate, UITableView
                 quiz?.numberOfQuestions = (quiz?.questions.count)!
             }
         }
-        
         dismiss(animated: true, completion: nil)
     }
     
@@ -111,6 +108,7 @@ class EditQuizViewController: UIViewController, UITableViewDelegate, UITableView
      
      // In a storyboard-based application, you will often want to do a little preparation before navigation
      override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        // Adding a question
         if segue.identifier == "addQuestionSegue" {
             let navVC = segue.destination as! UINavigationController
             let editQuestionVC = navVC.topViewController as! EditQuestionViewController
@@ -119,6 +117,8 @@ class EditQuizViewController: UIViewController, UITableViewDelegate, UITableView
             editQuestionVC.isCreatingQuest = true
             editQuestionVC.isCreatingQuiz = isCreating
         }
+        
+        //Editing a question
         if segue.identifier == "editQuestionSegue" {
             let navVC = segue.destination as! UINavigationController
             let editQuestionVC = navVC.topViewController as! EditQuestionViewController

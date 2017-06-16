@@ -9,6 +9,7 @@
 import RealmSwift
 
 class RLMString: Object {
+    // Wrapper class for a type String
     
     dynamic var string: String = ""
     

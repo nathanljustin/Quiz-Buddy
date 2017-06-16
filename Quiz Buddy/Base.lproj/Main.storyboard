@@ -450,38 +450,26 @@
                                         <rect key="frame" x="0.0" y="28" width="375" height="98"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="nDl-cW-a0m" id="tcy-0t-NLT" customClass="AnswerTableViewCell" customModule="Quiz_Buddy" customModuleProvider="target">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="97.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="98"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="A" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UnD-M5-Nxb">
-                                                    <rect key="frame" x="8" y="28" width="39" height="42"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="A" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UnD-M5-Nxb">
+                                                    <rect key="frame" x="35" y="28" width="39" height="42"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="width" constant="39" id="3DN-pH-0om"/>
+                                                        <constraint firstAttribute="width" constant="39" id="pel-d9-5fb"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="50"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" Answer Answer Answer Answer Answer Answer Answer Answer Answer Answer Answer Answer Answer" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zif-xC-Uma">
-                                                    <rect key="frame" x="133" y="8" width="234" height="82"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" constant="82" id="5id-Ff-Lqc"/>
-                                                        <constraint firstAttribute="width" secondItem="zif-xC-Uma" secondAttribute="height" multiplier="259:82" constant="-25" id="oxK-AE-TXT"/>
-                                                    </constraints>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text=" Answer Answer Answer Answer Answer Answer " textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zif-xC-Uma">
+                                                    <rect key="frame" x="103" y="8" width="239" height="82"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
-                                            <constraints>
-                                                <constraint firstItem="UnD-M5-Nxb" firstAttribute="leading" secondItem="tcy-0t-NLT" secondAttribute="leadingMargin" id="2sk-J3-1BR"/>
-                                                <constraint firstItem="UnD-M5-Nxb" firstAttribute="centerY" secondItem="tcy-0t-NLT" secondAttribute="centerY" id="GDd-Jy-gSj"/>
-                                                <constraint firstItem="zif-xC-Uma" firstAttribute="trailing" secondItem="tcy-0t-NLT" secondAttribute="trailingMargin" id="GfB-Ik-jZe"/>
-                                                <constraint firstItem="UnD-M5-Nxb" firstAttribute="top" secondItem="tcy-0t-NLT" secondAttribute="topMargin" constant="20" id="WCd-N0-0HM"/>
-                                                <constraint firstItem="zif-xC-Uma" firstAttribute="leading" secondItem="UnD-M5-Nxb" secondAttribute="trailing" constant="86" id="WHt-ig-cVa"/>
-                                                <constraint firstItem="zif-xC-Uma" firstAttribute="centerY" secondItem="UnD-M5-Nxb" secondAttribute="centerY" id="myE-dP-bRW"/>
-                                                <constraint firstItem="zif-xC-Uma" firstAttribute="top" secondItem="tcy-0t-NLT" secondAttribute="topMargin" id="x7f-gU-I4o"/>
-                                            </constraints>
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="answerLabel" destination="zif-xC-Uma" id="97Z-Jy-yZm"/>
@@ -860,7 +848,7 @@
         <image name="question mark" width="440" height="770"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="5As-Ky-gAO"/>
+        <segue reference="zyc-Oo-Mdh"/>
         <segue reference="ABq-YI-ljM"/>
     </inferredMetricsTieBreakers>
 </document>

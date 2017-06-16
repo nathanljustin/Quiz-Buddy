@@ -17,8 +17,6 @@ class LoginViewController: UIViewController, LoginButtonDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let accessToken = AccessToken.current
-        
         // Do any additional setup after loading the view.
         let loginButton = LoginButton(readPermissions: [ .publicProfile ])
         loginButton.delegate = self
@@ -39,8 +37,17 @@ class LoginViewController: UIViewController, LoginButtonDelegate {
         
         Auth.auth().signIn(with: credential) { (user, error) in
             if let error = error {
-                // Error handle this
+                // Error handle with an alert
+                
+                let alertController = UIAlertController(title: "Error", message: "Unable to login.", preferredStyle: .alert)
+                
+                // Now adding the action to the alert controller
+                alertController.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                
+                self.present(alertController, animated: true, completion: nil)
+                
                 print(error.localizedDescription)
+                
                 return
             }
             // Successfully logged in using Facebook and Firebase

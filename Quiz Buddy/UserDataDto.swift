@@ -21,6 +21,7 @@ class QuestionDto: Decodable, Glossy {
         self.prevScore = 0
     }
     
+    // Deserialize
     required init?(json: JSON) {
         self.question = ("question" <~~ json)!
         self.correct = ("correct" <~~ json)!
@@ -28,6 +29,7 @@ class QuestionDto: Decodable, Glossy {
         self.prevScore = ("prevScore" <~~ json)!
     }
     
+    // Serialize
     func toJSON() -> JSON? {
         return jsonify([
             "question" ~~> self.question,
@@ -50,6 +52,7 @@ class QuizDto: Decodable, Glossy {
         self.numberOfQuestions = 0
     }
     
+    // Deserialize
     required init?(json: JSON) {
         self.name = ("name" <~~ json)!
         self.questions = ("questions" <~~ json)!
@@ -57,6 +60,7 @@ class QuizDto: Decodable, Glossy {
         self.numberOfQuestions = ("numberOfQuestions" <~~ json)!
     }
     
+    // Serialize
     func toJSON() -> JSON? {
         return jsonify([
             "name" ~~> self.name,

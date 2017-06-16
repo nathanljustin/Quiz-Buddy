@@ -12,9 +12,8 @@ import RealmSwift
 
 class QuizTableViewController: UITableViewController {
     
-    var indexChosen: Int!
-    
-    var quizzes: Results<Quiz>!
+    var indexChosen: Int! // Stores the index of the quiz chosen by the user
+    var quizzes: Results<Quiz>! // Stores the quizzes from Realm
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,9 +28,11 @@ class QuizTableViewController: UITableViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        // Get all quizzes from Realm
         let realm = try! Realm()
         quizzes = realm.objects(Quiz.self)
         
+        // Update table
         tableView.reloadData()
     }
 
@@ -54,19 +55,20 @@ class QuizTableViewController: UITableViewController {
 
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        // Instantiate cell
         let cell = tableView.dequeueReusableCell(withIdentifier: "quizCell", for: indexPath) as! QuizTableViewCell
         
+        // Insert info into cell
         cell.name.text = quizzes?[indexPath.row].name
+        
         let text1: String!
         text1 = String(describing: (quizzes?[indexPath.row].questions.count)!)
         cell.number.text = "Number of Questions: \(text1!)"
-        
+
         let text2: String!
         text2 = String(describing: (quizzes?[indexPath.row].prevScore)!)
         cell.prevScore.text = "Previous Score: \(text2!)"
         
-        // Configure the cell...
-
         return cell as UITableViewCell
     }
     
@@ -114,12 +116,14 @@ class QuizTableViewController: UITableViewController {
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        // If choose to add a quiz
         if segue.identifier == "addSegue" {
             let navigationVC = segue.destination as! UINavigationController
             let createVC = navigationVC.topViewController as! EditQuizViewController
             createVC.isCreating = true
             createVC.quiz = Quiz()
         }
+        // If choose to go to settings
         if segue.identifier == "optionsSegue" {
             let optionsVC = segue.destination as! QuizOptionsTableViewController
             optionsVC.quiz = quizzes[indexChosen!]
@@ -129,7 +133,8 @@ class QuizTableViewController: UITableViewController {
 }
 
 class QuizTableViewCell: UITableViewCell {
-    @IBOutlet weak var name: UILabel!
-    @IBOutlet weak var number: UILabel!
-    @IBOutlet weak var prevScore: UILabel!
+    // This is a class for the custom cells for each quiz
+    @IBOutlet weak var name: UILabel! // name of quiz
+    @IBOutlet weak var number: UILabel! // number of questions in quiz
+    @IBOutlet weak var prevScore: UILabel! // previous score of quiz
 }
