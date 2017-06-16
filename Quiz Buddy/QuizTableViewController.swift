@@ -74,6 +74,7 @@ class QuizTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         indexChosen = indexPath.row
+        performSegue(withIdentifier: "optionsSegue", sender: nil)
     }
 
     /*
